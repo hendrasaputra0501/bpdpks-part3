@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="c10i_base_dashboard assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/css" href="/c10i_base_dashboard/static/lib/leaflet/leaflet.css"/>
+            <script type="text/javascript" src="/c10i_base_dashboard/static/lib/leaflet/leaflet.js"></script>
+            <script type="text/javascript" src="/c10i_base_dashboard/static/lib/chartjs/chart.min.js"></script>
+            
+            <link rel="stylesheet" type="text/css" href="/c10i_base_dashboard/static/src/css/dashboard_card.css"/>
+            <script type="text/javascript" src="/c10i_base_dashboard/static/src/js/dashboard_card.js"></script>
+        </xpath>
+    </template>
+</odoo>
