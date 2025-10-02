@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_legal_case_user,legal.case.jenis,model_legal_case_jenis,c10i_legal_case.group_legal_case_user,1,0,0,0
+access_legal_case_manager,legal.case.jenis,model_legal_case_jenis,c10i_legal_case.group_legal_case_manager,1,1,1,1
+access_legal_case_klasifikasi_user,legal.case.classification,model_legal_case_classification,c10i_legal_case.group_legal_case_user,1,0,0,0
+access_legal_case_klasifikasi_manager,legal.case.classification,model_legal_case_classification,c10i_legal_case.group_legal_case_manager,1,1,1,1
+access_legal_case_type_user,legal.case.type,model_legal_case_type,c10i_legal_case.group_legal_case_user,1,0,0,0
+access_legal_case_type_manager,legal.case.type,model_legal_case_type,c10i_legal_case.group_legal_case_manager,1,1,1,1
+access_legal_case_case_user,legal.case.case,model_legal_case_case,c10i_legal_case.group_legal_case_user,1,1,1,1

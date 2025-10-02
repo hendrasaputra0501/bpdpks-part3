@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="legal_case_jenis_form" model="ir.ui.view">
+            <field name="name">Jenis Kasus</field>
+            <field name="model">legal.case.jenis</field>
+            <field name="arch" type="xml">
+                <form string="Jenis Kasus">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="legal_case_jenis_tree" model="ir.ui.view">
+            <field name="name">Jenis Kasus</field>
+            <field name="model">legal.case.jenis</field>
+            <field name="arch" type="xml">
+                <tree string="Jenis Kasus">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="legal_case_jenis_search" model="ir.ui.view">
+            <field name="name">legal.case.jenis.search</field>
+            <field name="model">legal.case.jenis</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="eps_legal_case_jenis_action">
+            <field name="name">Jenis Kasus</field>
+            <field name="res_model">legal.case.jenis</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Legal Cases"
+        id="menu_legal_case" web_icon="c10i_legal_case,static/src/images/legal_case.png"
+        sequence="40"/>
+
+        <menuitem name="Configuration"
+        id="menu_legal_case_configuration" parent="menu_legal_case"
+        sequence="30"/>
+
+        <menuitem id="legal_case_jenis_menuitem" name="Jenis Kasus" parent="menu_legal_case_configuration" action="eps_legal_case_jenis_action" sequence="1"/>
+
+    </data>
+</odoo>

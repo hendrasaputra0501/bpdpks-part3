@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="legal_case_case_form" model="ir.ui.view">
+            <field name="name">Kasus</field>
+            <field name="model">legal.case.case</field>
+            <field name="arch" type="xml">
+                <form string="Kasus">
+                    <header>
+                        <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <span class="o_form_label">No. Kasus </span>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="tipe_panggilan"/>
+                                <field name="jenis_perkara_id"/>
+                                <field name="classification_id"/>
+                                <field name="state_id" domain="[('country_id.name','=','Indonesia')]"/>
+                                <field name="city"/>
+                                <field name="tag_ids" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="pemeriksa" attrs="{'invisible': [('tipe_panggilan','!=','Pemeriksaan')]}"/>
+                                <field name="terperiksa" attrs="{'invisible': [('tipe_panggilan','!=','Pemeriksaan')]}"/>
+                                <field name="penggugat" attrs="{'invisible': [('tipe_panggilan','!=','Pengadilan')]}"/>
+                                <field name="tergugat" attrs="{'invisible': [('tipe_panggilan','!=','Pengadilan')]}"/>
+                                <field name="obyek_perkara"/>
+                                <field name="nilai_pungutan"/>
+                                <field name="notes"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Sub Perkara" name="child_ids">
+                                <field name="child_ids">
+                                    <tree string="Sub Perkara">
+                                        <field name="jenis_perkara_id"/>
+                                        <field name="name"/>
+                                        <field name="classification_id"/>
+                                        <field name="penggugat"/>
+                                        <field name="tergugat"/>
+                                        <field name="state_id"/>
+                                        <field name="nilai_pungutan"/>
+                                        <field name="activity_ids"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="legal_case_case_tree" model="ir.ui.view">
+            <field name="name">Kasus</field>
+            <field name="model">legal.case.case</field>
+            <field name="arch" type="xml">
+                <tree string="Kasus">
+                    <field name="jenis_perkara_id"/>
+                    <field name="name"/>
+                    <field name="classification_id"/>
+                    <field name="penggugat"/>
+                    <field name="tergugat"/>
+                    <field name="state_id"/>
+                    <field name="nilai_pungutan"/>
+                    <field name="activity_ids"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="legal_case_case_search" model="ir.ui.view">
+            <field name="name">legal.case.case.search</field>
+            <field name="model">legal.case.case</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="jenis_perkara_id"/>
+                    <field name="name"/>
+                    <field name="classification_id"/>
+                    <field name="penggugat"/>
+                    <field name="tergugat"/>
+                    <field name="state_id"/>
+                    <field name="nilai_pungutan"/>
+                    <field name="activity_ids"/>
+                    <field name="state"/>
+                    <filter string="Open" name="state_open" domain="[('state','=','open')]" />
+                    <filter string="Closed" name="state_closed" domain="[('state','=','closed')]" />
+                    <group expand="0" string="Group By">
+                        <filter name="jenis_perkara_id"  string="Jenis Perkara" icon="terp-personal" domain="[]" context="{'group_by':'jenis_perkara_id'}"/>
+                        <filter name="classification_id" string="Klasifikasi" icon="terp-folder-orange" domain="[]" context="{'group_by':'classification_id'}"/>
+                        <filter name="tipe_panggilan" string="Tipe Panggilan" icon="terp-folder-orange" domain="[]" context="{'group_by':'classification_id'}"/>
+                        <filter name="state_id" string="Lokasi" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state_id'}"/>
+                        <filter name="state" string="Status" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="eps_legal_case_case_action">
+            <field name="name">Kasus</field>
+            <field name="res_model">legal.case.case</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+       
+
+        <menuitem name="Kasus"
+        id="menu_legal_case_case" parent="menu_legal_case"
+        sequence="10"/>
+
+        <menuitem id="legal_case_case_menuitem" name="Kasus" parent="menu_legal_case_case" action="eps_legal_case_case_action" sequence="1"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="legal_case_classification_form" model="ir.ui.view">
+            <field name="name">Klasifikasi</field>
+            <field name="model">legal.case.classification</field>
+            <field name="arch" type="xml">
+                <form string="Klasifikasi">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="legal_case_classification_tree" model="ir.ui.view">
+            <field name="name">Klasifikasi</field>
+            <field name="model">legal.case.classification</field>
+            <field name="arch" type="xml">
+                <tree string="Klasifikasi">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="legal_case_classification_search" model="ir.ui.view">
+            <field name="name">legal.case.classification.search</field>
+            <field name="model">legal.case.classification</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="eps_legal_case_classification_action">
+            <field name="name">Klasifikasi</field>
+            <field name="res_model">legal.case.classification</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="legal_case_classification_menuitem" name="Klasifikasi" parent="menu_legal_case_configuration" action="eps_legal_case_classification_action" sequence="2"/>
+
+    </data>
+</odoo>
