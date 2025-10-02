@@ -81,6 +81,40 @@
             </field>
         </record>
 
+        <record id="legal_case_case_kanban" model="ir.ui.view">
+            <field name="name">Kasus</field>
+            <field name="model">legal.case.case</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="state" class="o_kanban_small_column o_opportunity_kanban" default_order="state desc" create="false" delete="false">
+                    <field name="name"/>
+                    <field name="classification_id"/>
+                    <field name="state_id"/>
+                    <field name="city"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="oe_kanban_content">
+                                    <div>
+                                        <strong><field name="name"/></strong>
+                                        <br/>
+                                        <field name="classification_id"/>
+                                        <br/>
+                                        <field name="state_id"/>
+                                        <br/>
+                                        <field name="city"/>
+                                    </div>
+                                    <div>
+                                        <br/>
+                                        <strong><field name="state"/></strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
         <record id="legal_case_case_search" model="ir.ui.view">
             <field name="name">legal.case.case.search</field>
             <field name="model">legal.case.case</field>
@@ -111,7 +145,7 @@
         <record model="ir.actions.act_window" id="eps_legal_case_case_action">
             <field name="name">Kasus</field>
             <field name="res_model">legal.case.case</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,kanban</field>
         </record>
 
        
