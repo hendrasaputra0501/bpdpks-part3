@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="room_menu_root" name="Meeting Rooms" web_icon="c10i_rooms,static/description/meeting.png" />
+    <menuitem
+        id="room_room_menu"
+        name="Rooms"
+        action="c10i_rooms.room_room_action"
+        parent="c10i_rooms.room_menu_root"
+        sequence="1"/>
+    
+    <menuitem
+        id="room_booking_menu"
+        name="Room Booking"
+        action="c10i_rooms.room_booking_action"
+        parent="c10i_rooms.room_menu_root"
+        sequence="2"/>
+    
+
+
+</odoo>
