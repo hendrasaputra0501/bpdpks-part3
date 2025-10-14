@@ -1,15 +1,24 @@
 <?xml version="1.0"?>
 <odoo>
-    <!-- Grup utama -->
-    <record id="group_audit_spi" model="res.groups">
-        <field name="name">Audit / SPI</field>
-    </record>
+    <data noupdate="1">
+        <record id="module_category_audit" model="ir.module.category">
+            <field name="name">Audit</field>
+            <field name="parent_id" ref="bpdpks_operation.module_category_bpdpks_operation"/>
+            <field name="sequence" eval="8"/>
+        </record>
 
-    <record id="group_audit_teknis" model="res.groups">
-        <field name="name">Audit / Divisi Teknis</field>
-    </record>
+        <!-- Grup utama -->
+        <record id="group_audit_spi" model="res.groups">
+            <field name="name">Audit / SPI</field>
+            <field name="category_id" ref="c10i_audit.module_category_audit"/>
+        </record>
 
-    <record id="group_audit_portal" model="res.groups">
-        <field name="name">Audit / Auditor (Portal)</field>
-    </record>
+        <record id="group_audit_teknis" model="res.groups">
+            <field name="name">Audit / Divisi Teknis</field>
+        </record>
+
+        <record id="group_audit_portal" model="res.groups">
+            <field name="name">Audit / Auditor (Portal)</field>
+        </record>
+    </data>
 </odoo>
