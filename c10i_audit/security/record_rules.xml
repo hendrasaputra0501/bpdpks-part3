@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <!-- SPI (Full Access) -->
+    <record id="rule_audit_spi_all" model="ir.rule">
+        <field name="name">SPI Full Access</field>
+        <field name="model_id" ref="model_audit_document_request"/>
+        <field name="groups" eval="[(4, ref('c10i_audit.group_audit_spi'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <!-- Divisi Teknis -->
+    <record id="rule_audit_document_request_teknis" model="ir.rule">
+        <field name="name">Divisi Teknis hanya melihat permintaan dokumen divisi-nya</field>
+        <field name="model_id" ref="model_audit_document_request"/>
+        <field name="groups" eval="[(4, ref('c10i_audit.group_audit_teknis'))]"/>
+        <field name="domain_force">[('division_id','in',[user.employee_id.department_id.id])]</field>
+    </record>
+
+    <!-- Divisi Teknis - Akses Rekomendasi -->
+    <record id="rule_audit_findings_teknis" model="ir.rule">
+        <field name="name">Divisi Teknis hanya melihat rekomendasi divisi-nya</field>
+        <field name="model_id" ref="model_audit_findings"/>
+        <field name="groups" eval="[(4, ref('c10i_audit.group_audit_teknis'))]"/>
+        <field name="domain_force">[('division_id', 'in', [user.employee_id.department_id.id])]</field>
+    </record>
+
+    <!-- Portal Auditor -->
+    <record id="rule_audit_document_request_portal" model="ir.rule">
+        <field name="name">Auditor hanya melihat dokumen yang diserahkan</field>
+        <field name="model_id" ref="model_audit_document_request"/>
+        <field name="groups" eval="[(4, ref('c10i_audit.group_audit_portal'))]"/>
+        <field name="domain_force">
+            [('state','=','diserahkan'), ('audit_id.state','not in',['done','cancel'])]
+        </field>
+    </record>
+
+</odoo>

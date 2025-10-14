@@ -1,0 +1,37 @@
+<odoo>
+    <record id="view_audit_tag_tree" model="ir.ui.view">
+        <field name="name">audit.tag.tree</field>
+        <field name="model">audit.tag</field>
+        <field name="arch" type="xml">
+            <tree string="Audit Tags">
+                <field name="name"/>
+                <field name="color"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_audit_tag_form" model="ir.ui.view">
+        <field name="name">audit.tag.form</field>
+        <field name="model">audit.tag</field>
+        <field name="arch" type="xml">
+            <form string="Audit Tag">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="color" widget="color_picker"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_audit_tag" model="ir.actions.act_window">
+        <field name="name">Audit Tags</field>
+        <field name="res_model">audit.tag</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form Pembahasan -->
+    <record id="audit_discuss_note_view_form" model="ir.ui.view">
+        <field name="name">audit.discuss.note.view.form</field>
+        <field name="model">audit.discuss.note</field>
+        <field name="arch" type="xml">
+            <form string="Pembahasan">
+                <sheet>
+                    <group>
+                        <field name="audit_id" readonly="1" />
+                        <field name="discuss_date" /> 
+                        <field name="discuss_note" /> 
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

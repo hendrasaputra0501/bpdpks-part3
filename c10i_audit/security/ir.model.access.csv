@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_audit_stage,audit.stage,model_audit_stage,base.group_user,1,1,1,1
+access_audit_tag,audit.tag,model_audit_tag,base.group_user,1,1,1,1
+
+
+access_audit_audit_spi,Audit Audit SPI,model_audit_audit,c10i_audit.group_audit_spi,1,1,1,1
+access_audit_partner_spi,Audit Partner SPI,model_audit_partner,c10i_audit.group_audit_spi,1,1,1,1
+access_audit_document_request_spi,Audit Document SPI,model_audit_document_request,c10i_audit.group_audit_spi,1,1,1,1
+access_audit_discuss_note_spi,Audit Discuss SPI,model_audit_discuss_note,c10i_audit.group_audit_spi,1,1,1,1
+access_audit_findings_spi,Audit Findings SPI,model_audit_findings,c10i_audit.group_audit_spi,1,1,1,1
+
+access_audit_document_request_teknis,Audit Document Teknis,model_audit_document_request,c10i_audit.group_audit_teknis,1,1,0,0
+access_audit_findings_teknis,Audit Findings Teknis,model_audit_findings,c10i_audit.group_audit_teknis,1,1,0,0
+
+access_audit_document_request_portal,Audit Document Portal,model_audit_document_request,c10i_audit.group_audit_portal,1,0,0,0
