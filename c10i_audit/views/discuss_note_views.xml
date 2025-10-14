@@ -9,7 +9,6 @@
             <form string="Pembahasan">
                 <sheet>
                     <group>
-                        <field name="audit_id" readonly="1" />
                         <field name="discuss_date" /> 
                         <field name="discuss_note" /> 
                     </group>

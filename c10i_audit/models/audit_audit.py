@@ -146,7 +146,7 @@ class AuditAudit(models.Model):
                 raise UserError(_("Partner %s tidak memiliki email, tidak bisa dibuatkan user portal.") % partner.name)
 
             portal_group = self.env.ref('base.group_portal')
-            audit_portal_group = self.env.ref('c10i_audit.group_audit_portal')
+            # audit_portal_group = self.env.ref('c10i_audit.group_audit_portal')
 
             user = self.env['res.users'].search([('login', '=', partner.email)], limit=1)
 
@@ -156,9 +156,8 @@ class AuditAudit(models.Model):
                     'login': partner.email,
                     'email': partner.email,
                     'partner_id': partner.id,
-                    'groups_id': [(6, 0, [portal_group.id, audit_portal_group.id])],
+                    'groups_id': [(6, 0, [portal_group.id])],
                 })
                 rec.message_post(body=f"Portal user <b>{partner.name}</b> berhasil dibuat dan dapat mengakses dokumen audit ini.")
             else:
-                user.groups_id = [(4, audit_portal_group.id)]
                 rec.message_post(body=f"Auditor <b>{partner.name}</b> sudah memiliki akun portal.")

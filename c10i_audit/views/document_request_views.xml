@@ -22,9 +22,9 @@
         <field name="arch" type="xml">
             <form string="Permintaan Dokumen">
                 <header>
-                    <button name="action_submit" type="object" string="submit" states="draft" class="oe_highlight" groups="c10i_audit.group_audit_spi"/>
-                    <button name="action_belum_terpenuhi" type="object" string="Belum Terpenuhi" states="sudah_terpenuhi,diserahkan,ditolak" class="oe_highlight" groups="c10i_audit.group_audit_spi"/>
-                    <button name="action_sudah_terpenuhi" type="object" string="Sudah Terpenuhi" states="belum_terpenuhi,ditolak" class="btn-primary" groups="c10i_audit.group_audit_spi"/>
+                    <button name="action_submit" type="object" string="submit" states="draft" class="oe_highlight" groups="base.group_user"/>
+                    <button name="action_belum_terpenuhi" type="object" string="Belum Terpenuhi" states="submit" class="oe_highlight" groups="c10i_audit.group_audit_spi"/>
+                    <button name="action_sudah_terpenuhi" type="object" string="Sudah Terpenuhi" states="submit,belum_terpenuhi,ditolak" class="btn-primary" groups="c10i_audit.group_audit_spi"/>
                     <button name="action_diserahkan" type="object" string="DISERAHKAN" states="sudah_terpenuhi" class="btn-success" groups="c10i_audit.group_audit_spi"/>
                     <button name="action_ditolak" type="object" string="TOLAK" states="belum_terpenuhi,sudah_terpenuhi" class="btn-danger" groups="c10i_audit.group_audit_spi"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,belum_terpenuhi,submit,sudah_terpenuhi,diserahkan,ditolak"/>
