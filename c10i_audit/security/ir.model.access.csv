@@ -1,5 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_audit_stage,audit.stage,model_audit_stage,base.group_user,1,1,1,1
+access_audit_tag,audit.tag,model_audit_tag,base.group_user,1,1,1,1
 
 
 access_audit_audit_spi,Audit Audit SPI,model_audit_audit,c10i_audit.group_audit_spi,1,1,1,1

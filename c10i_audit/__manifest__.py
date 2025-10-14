@@ -35,10 +35,13 @@
         'views/document_request_views.xml',
         'views/findings_views.xml',
         'views/discuss_note_views.xml',
+        'views/audit_tag_views.xml',
+        'views/audit_partner_views.xml',
+        
+
+        # Menu setting
         'views/menu_views.xml',
 
-        # View untuk user portal
-        'views/portal_templates.xml',
 
     ],
     # only loaded in demonstration mode

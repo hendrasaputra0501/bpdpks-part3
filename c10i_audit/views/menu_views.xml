@@ -25,4 +25,24 @@
         sequence="3" 
         groups="c10i_audit.group_audit_spi,c10i_audit.group_audit_teknis"/>
     
+    <menuitem 
+        id="menu_audit_setting"
+        name="Setting"
+        parent="c10i_audit.audit_menu_root"
+        sequence="4"/>
+
+    <menuitem 
+        id="menu_audit_tag"
+        name="Tags"
+        parent="c10i_audit.menu_audit_setting"
+        action="action_audit_tag"
+        sequence="1"/>
+    <menuitem 
+        id="menu_audit_partner"
+        name="Audit Partner"
+        parent="c10i_audit.menu_audit_setting"
+        action="audit_partner_action"
+        sequence="2"/>
+
+    
 </odoo>

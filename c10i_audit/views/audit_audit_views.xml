@@ -24,8 +24,8 @@
         <field name="arch" type="xml">
             <form string="Form Pelaksanaan Audit">
                 <header>
-                    <button name="action_confirm" type="object" string="Confirm" class="oe_highlight" groups="c10i_audit.group_audit_spi" attrs="{'invisible': [('stage_code', '!=', 'exit')]}"/>
-                    <field name="stage_id" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"/>
+                    <!-- <button name="action_confirm" type="object" string="Confirm" class="oe_highlight" groups="c10i_audit.group_audit_spi" attrs="{'invisible': [('stage_code', '!=', 'exit')]}"/> -->
+                    <field name="stage_id" widget="statusbar" statusbar_visible="draft,entry,permintaan,pembahasan,exit,done" options="{'clickable': '1', 'fold_field': 'fold'}" domain="[('code', '!=', 'cancel')]"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
@@ -39,32 +39,38 @@
                             <field name="auditee_id"/>
                             <field name="team_leader_id"/>
                             <field name="no_surat"/>
+                            <field name="no_doc_lhp"/>
                         </group>
                         <group string="Masa Surat Tugas">
                             <field name="date_start"/>
                             <field name="date_end"/>
+                            
+                            <field name="stage_code" invisible="1"/>
+                        </group>
+                        <group string="Audit Tag">
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                         </group>
                         <group string="Dokument Surat Tugas">
                             <field name="assignment_attachment" filename="assignment_filename"/>
                         </group>
                     </group>
-                    <group string="Object Audit">
-                            <field name="audit_object"/>
-                            <field name="stage_code" invisible="1"/>
-                    </group>
+                    
                     <notebook>
+                        <page string="Object Audit">
+                            <field name="audit_object"/>
+                        </page>
                         <page name="entry" string="Entry Meeting"
                             attrs="{'invisible': [('stage_code', '=', 'draft')]}">
                             <group>
                                 <field name="entry_meeting_date"/>
                                 <field name="entry_meeting_doc" filename="entry_meeting_filename"/>
-                                <field name="entry_meeting_note"/>
                             </group>
+                            <field name="entry_meeting_note"/>
                         </page>
 
                         <page name="permindok" string="Permintaan Dokumen"
                             attrs="{'invisible': [('stage_code', 'in', ['draft','entry'])]}">
-                            <field name="document_request_ids">
+                            <field name="document_request_ids" context="{'form_view_ref': 'c10i_audit.audit_document_request_view_form2'}">
                                 <tree>
                                     <field name="name"/>
                                     <field name="request_date"/>
@@ -92,7 +98,7 @@
                                 <field name="exit_meeting_date"/>
                                 <field name="exit_meeting_doc" filename="exit_meeting_filename"/>
                             </group>
-                            <field name="findings_ids">
+                            <field name="findings_ids" context="{'form_view_ref': 'c10i_audit.view_audit_findings_form2'}">
                                 <tree>
                                     <field name="audit_id" readonly="1"/>
                                     <field name="name"/>

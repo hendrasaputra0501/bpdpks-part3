@@ -18,11 +18,16 @@ class AuditDocumentRequest(models.Model):
     note = fields.Html('Catatan')
 
     state = fields.Selection([
+        ('draft', 'draft'),
+        ('submit', 'Submit'),
         ('belum_terpenuhi', 'Belum Terpenuhi'),
         ('sudah_terpenuhi', 'Sudah Terpenuhi'),
         ('diserahkan', 'Sudah Diserahkan ke Auditor'),
         ('ditolak', 'Ditolak'),
-    ], string='Status', readonly=True, default='belum_terpenuhi', tracking=True)
+    ], string='Status', readonly=True, default='draft', tracking=True)
+
+    def action_submit(self):
+        self.write({'state': 'submit'})
 
     def action_belum_terpenuhi(self):
         self.write({'state': 'belum_terpenuhi'})

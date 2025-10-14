@@ -22,11 +22,12 @@
         <field name="arch" type="xml">
             <form string="Permintaan Dokumen">
                 <header>
+                    <button name="action_submit" type="object" string="submit" states="draft" class="oe_highlight" groups="c10i_audit.group_audit_spi"/>
                     <button name="action_belum_terpenuhi" type="object" string="Belum Terpenuhi" states="sudah_terpenuhi,diserahkan,ditolak" class="oe_highlight" groups="c10i_audit.group_audit_spi"/>
                     <button name="action_sudah_terpenuhi" type="object" string="Sudah Terpenuhi" states="belum_terpenuhi,ditolak" class="btn-primary" groups="c10i_audit.group_audit_spi"/>
                     <button name="action_diserahkan" type="object" string="DISERAHKAN" states="sudah_terpenuhi" class="btn-success" groups="c10i_audit.group_audit_spi"/>
                     <button name="action_ditolak" type="object" string="TOLAK" states="belum_terpenuhi,sudah_terpenuhi" class="btn-danger" groups="c10i_audit.group_audit_spi"/>
-                    <field name="state" widget="statusbar" statusbar_visible="belum_terpenuhi,sudah_terpenuhi,diserahkan,ditolak"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,belum_terpenuhi,submit,sudah_terpenuhi,diserahkan,ditolak"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
@@ -61,6 +62,38 @@
                     <field name="activity_ids" widget="mail_activity"/>
                     <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
                 </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Form yang muncul di audit.audit -->
+    <record id="audit_document_request_view_form2" model="ir.ui.view">
+        <field name="name">audit.document.request.view.form</field>
+        <field name="model">audit.document.request</field>
+        <field name="arch" type="xml">
+            <form string="Permintaan Dokumen">
+                <sheet>
+                    <group>
+                        <group name="audit" string="Deskripsi Dokumen">
+                            <field name="name"/>
+                        </group>
+                        <group name="tanggal" string="Informasi Tanggal">
+                            <field name="request_date"/>
+                            <field name="due_date"/>
+                        </group>
+                        <group name="devisi" string="Devisi Terkait">
+                            <field name="division_id"/>
+                        </group>
+                    </group>
+                    <group name="dokument" string="Dokument">
+                        <field name="document_file" filename="document_filename"/>
+                    </group>
+                    <notebook>
+                        <page name="note" string="Note">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+                </sheet>
             </form>
         </field>
     </record>

@@ -13,6 +13,19 @@ class AuditStage(models.Model):
     fold = fields.Boolean('Folded in Statusbar', default=False)
 
 
+class AuditTag(models.Model):
+    _name = 'audit.tag'
+    _description = 'Audit Tag'
+    _order = 'name'
+
+    name = fields.Char(string='Tag Name', required=True, translate=True)
+    color = fields.Integer(string='Color Index')
+    active = fields.Boolean(default=True)
+
+    _sql_constraints = [
+        ('name_unique', 'unique (name)', 'Nama tag sudah digunakan.')
+    ]
+
 
 class AuditAudit(models.Model):
     _name = "audit.audit"
@@ -31,6 +44,19 @@ class AuditAudit(models.Model):
     assignment_attachment = fields.Binary('Lampiran Surat Tugas')
     assignment_filename = fields.Char('Nama Lampiran')
     
+    # Nomor dok LHP
+    no_doc_lhp = fields.Char('Nomor Dokument LHP')
+
+    # relasi ke field audit.tag
+    tag_ids = fields.Many2many(
+    'audit.tag',
+    'audit_audit_tag_rel',   
+    'audit_id',              
+    'tag_id',
+    string='Tags'
+)
+
+
     # Entry Meeting
     entry_meeting_date = fields.Date('Tanggal Entry Meeting')
     entry_meeting_note = fields.Html('Catatan Entry Meeting')
@@ -39,7 +65,7 @@ class AuditAudit(models.Model):
     
     # Exit Meeting
     exit_meeting_date = fields.Date('Tanggal Exit Meeting')
-    exit_meeting_doc = fields.Binary('Dokumen Exit Meeting')
+    exit_meeting_doc = fields.Binary('Risalah Meeting')
     exit_meeting_filename = fields.Char('Nama File Exit Meeting')
 
     # Dokument surat tugas
@@ -58,9 +84,6 @@ class AuditAudit(models.Model):
     stage_code = fields.Char(related='stage_id.code', store=True)
 
     
-    # -------------------------------------------------------------------------
-    # Helper methods
-    # -------------------------------------------------------------------------
     def _get_default_stage_id(self):
         """Ambil stage pertama sebagai default."""
         return self.env['audit.stage'].search([], order='sequence', limit=1).id
@@ -70,9 +93,6 @@ class AuditAudit(models.Model):
         """Agar semua stage tampil di statusbar meski kosong."""
         return self.env['audit.stage'].search([], order='sequence')
 
-    # -------------------------------------------------------------------------
-    # Logic perubahan stage
-    # -------------------------------------------------------------------------
     def write(self, vals):
         """Override write agar bisa jalankan aksi tertentu setiap kali stage berubah."""
         res = super().write(vals)
@@ -97,9 +117,7 @@ class AuditAudit(models.Model):
         elif stage == 'Cancelled': 
             self.message_post(body=f"Audit dibatalkan.")
 
-    # -------------------------------------------------------------------------
-    # Action Confirm (Exit Meeting -> Done)
-    # -------------------------------------------------------------------------
+    
     def action_confirm(self):
         """Konfirmasi audit dari Exit Meeting menjadi Done + buat user portal auditor."""
         for rec in self:
@@ -116,9 +134,7 @@ class AuditAudit(models.Model):
             rec.message_post(body="Audit telah dikonfirmasi dan dipindahkan ke tahap <b>Done</b>. Portal Auditor diverifikasi.")
 
 
-    # -------------------------------------------------------------------------
-    # Fungsi membuat user portal auditor otomatis
-    # -------------------------------------------------------------------------
+    # Fungsi untuk membuat user portal
     def _create_portal_auditor_user(self):
         """Membuat user portal auditor secara otomatis dari partner pihak_audit_id."""
         for rec in self:
