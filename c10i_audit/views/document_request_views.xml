@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="audit_document_request_view_tree" model="ir.ui.view">
+        <field name="name">audit.document.request.view.tree</field>
+        <field name="model">audit.document.request</field>
+        <field name="arch" type="xml">
+            <tree string="Permintaan Dokumen">
+                <field name="audit_id" />
+                <field name="name" />
+                <field name="request_date" />
+                <field name="due_date" />
+                <field name="division_id" />
+                <field name="state" widget="badge" decoration-warning="state == 'belum_terpenuhi'" decoration-success="state == 'diserahkan'" decoration-info="state == 'sudah_terpenuhi'" decoration-danger="state == 'ditolak'" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="audit_document_request_view_form" model="ir.ui.view">
+        <field name="name">audit.document.request.view.form</field>
+        <field name="model">audit.document.request</field>
+        <field name="arch" type="xml">
+            <form string="Permintaan Dokumen">
+                <header>
+                    <button name="action_belum_terpenuhi" type="object" string="Belum Terpenuhi" states="sudah_terpenuhi,diserahkan,ditolak" class="oe_highlight" groups="c10i_audit.group_audit_spi"/>
+                    <button name="action_sudah_terpenuhi" type="object" string="Sudah Terpenuhi" states="belum_terpenuhi,ditolak" class="btn-primary" groups="c10i_audit.group_audit_spi"/>
+                    <button name="action_diserahkan" type="object" string="DISERAHKAN" states="sudah_terpenuhi" class="btn-success" groups="c10i_audit.group_audit_spi"/>
+                    <button name="action_ditolak" type="object" string="TOLAK" states="belum_terpenuhi,sudah_terpenuhi" class="btn-danger" groups="c10i_audit.group_audit_spi"/>
+                    <field name="state" widget="statusbar" statusbar_visible="belum_terpenuhi,sudah_terpenuhi,diserahkan,ditolak"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="audit_id" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="audit" string="Deskripsi Dokumen">
+                            <field name="name"/>
+                        </group>
+                        <group name="tanggal" string="Informasi Tanggal">
+                            <field name="request_date"/>
+                            <field name="due_date"/>
+                        </group>
+                        <group name="devisi" string="Devisi Terkait">
+                            <field name="division_id"/>
+                        </group>
+                    </group>
+                    <group name="dokument" string="Dokument">
+                        <field name="document_file" filename="document_filename"/>
+                    </group>
+                    <notebook>
+                        <page name="note" string="Note">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_audit_document_request" model="ir.actions.act_window">
+        <field name="name">Permintaan Dokumen</field>
+        <field name="res_model">audit.document.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{'default_devisi_id': uid}</field>
+    </record>
+
+</odoo>

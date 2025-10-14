@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="audit_audit_view_tree" model="ir.ui.view">
+        <field name="name">audit.audit.view.tree</field>
+        <field name="model">audit.audit</field>
+        <field name="arch" type="xml">
+            <tree string="Daftar Pelaksanaan Audit">
+                <field name="name"/>
+                <field name="no_surat"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="auditee_id"/>
+                <field name="team_leader_id"/>
+                <field name="stage_code" invisible="1"/>
+                <field name="stage_id" widget="badge" decoration-success="stage_code == 'done'" decoration-danger="stage_code == 'cancel'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="audit_audit_view_form" model="ir.ui.view">
+        <field name="name">audit.audit.view.form</field>
+        <field name="model">audit.audit</field>
+        <field name="arch" type="xml">
+            <form string="Form Pelaksanaan Audit">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm" class="oe_highlight" groups="c10i_audit.group_audit_spi" attrs="{'invisible': [('stage_code', '!=', 'exit')]}"/>
+                    <field name="stage_id" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" placeholder="New"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="auditee_id"/>
+                            <field name="team_leader_id"/>
+                            <field name="no_surat"/>
+                        </group>
+                        <group string="Masa Surat Tugas">
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                        </group>
+                        <group string="Dokument Surat Tugas">
+                            <field name="assignment_attachment" filename="assignment_filename"/>
+                        </group>
+                    </group>
+                    <group string="Object Audit">
+                            <field name="audit_object"/>
+                            <field name="stage_code" invisible="1"/>
+                    </group>
+                    <notebook>
+                        <page name="entry" string="Entry Meeting"
+                            attrs="{'invisible': [('stage_code', '=', 'draft')]}">
+                            <group>
+                                <field name="entry_meeting_date"/>
+                                <field name="entry_meeting_doc" filename="entry_meeting_filename"/>
+                                <field name="entry_meeting_note"/>
+                            </group>
+                        </page>
+
+                        <page name="permindok" string="Permintaan Dokumen"
+                            attrs="{'invisible': [('stage_code', 'in', ['draft','entry'])]}">
+                            <field name="document_request_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="request_date"/>
+                                    <field name="due_date"/>
+                                    <field name="division_id"/>
+                                    <field name="document_file" filename="document_filename"/>
+                                    <field name="state" widget="badge" decoration-warning="state == 'belum_terpenuhi'" decoration-success="state == 'diserahkan'" decoration-info="state == 'sudah_terpenuhi'" decoration-danger="state == 'ditolak'"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page name="pembahasan" string="Pembahasan"
+                            attrs="{'invisible': [('stage_code', 'in', ['draft','entry','permintaan'])]}">
+                            <field name="discussion_ids">
+                                <tree>
+                                    <field name="discuss_date"/>
+                                    <field name="discuss_note"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page name="exit_meeting" string="Exit Meeting"
+                            attrs="{'invisible': [('stage_code', 'in', ['draft','entry','permintaan','pembahasan'])]}">
+                            <group string="Exit Meeting Information">
+                                <field name="exit_meeting_date"/>
+                                <field name="exit_meeting_doc" filename="exit_meeting_filename"/>
+                            </group>
+                            <field name="findings_ids">
+                                <tree>
+                                    <field name="audit_id" readonly="1"/>
+                                    <field name="name"/>
+                                    <field name="recommendation_title"/>
+                                    <field name="recommendation_date"/>
+                                    <field name="division_id"/>
+                                    <field name="date_received"/>
+                                    <field name="date_closed" optional="hide"/>
+                                    <field name="date_done_bpdp" optional="hide" />
+                                    <field name="state" widget="badge" decoration-warning="state == 'proses'" decoration-success="state == 'selesai_bpdp'" decoration-info="state == 'closed'"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="audit_audit_action" model="ir.actions.act_window">
+        <field name="name">Audit</field>
+        <field name="res_model">audit.audit</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Tidak ada permintaan audit untuk ditampilkan.
+            </p>
+            <p>Klik tombol <b>Buat</b> untuk menambahkan permintaan audit baru.</p>
+        </field>
+    </record>
+
+</odoo>

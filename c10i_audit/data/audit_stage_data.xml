@@ -1,0 +1,43 @@
+<odoo>
+    <record id="stage_draft" model="audit.stage">
+        <field name="name">Draft</field>
+        <field name="code">draft</field>
+        <field name="sequence">1</field>
+    </record>
+
+    <record id="stage_entry" model="audit.stage">
+        <field name="name">Entry Meeting</field>
+        <field name="code">entry</field>
+        <field name="sequence">2</field>
+    </record>
+
+    <record id="stage_permintaan" model="audit.stage">
+        <field name="name">Permintaan Dokumen</field>
+        <field name="code">permintaan</field>
+        <field name="sequence">3</field>
+    </record>
+
+    <record id="stage_pembahasan" model="audit.stage">
+        <field name="name">Pembahasan</field>
+        <field name="code">pembahasan</field>
+        <field name="sequence">4</field>
+    </record>
+
+    <record id="stage_exit" model="audit.stage">
+        <field name="name">Exit Meeting</field>
+        <field name="code">exit</field>
+        <field name="sequence">5</field>
+    </record>
+
+    <record id="stage_done" model="audit.stage">
+        <field name="name">Done</field>
+        <field name="code">done</field>
+        <field name="sequence">6</field>
+    </record>
+
+    <record id="stage_cancel" model="audit.stage">
+        <field name="name">Cancelled</field>
+        <field name="code">cancel</field>
+        <field name="sequence">7</field>
+    </record>
+</odoo>
