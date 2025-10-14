@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 
 class AuditDocumentRequest(models.Model):
     _name = "audit.document.request"
@@ -25,6 +25,40 @@ class AuditDocumentRequest(models.Model):
         ('diserahkan', 'Sudah Diserahkan ke Auditor'),
         ('ditolak', 'Ditolak'),
     ], string='Status', readonly=True, default='draft', tracking=True)
+    
+    # def action_open_activity_attachments(self):
+    #     """Buka semua aktivitas yang punya attachment."""
+    #     attachments = self.env['ir.attachment'].search([
+    #         ('res_model', '=', self._name),
+    #         ('res_id', '=', self.id)
+    #     ])
+    #     return {
+    #         'type': 'ir.actions.act_window',
+    #         'name': 'Activity Dokumen',
+    #         'res_model': 'ir.attachment',
+    #         'view_mode': 'tree',
+    #         'domain': [('id', 'in', attachments.ids)],
+    #     }
+
+    def action_open_activity_attachments(self):
+        """Buka semua attachment dari dokumen audit ini dengan custom view."""
+        attachments = self.env['ir.attachment'].search([
+            ('res_model', '=', self._name),
+            ('res_id', '=', self.id)
+        ])
+        custom_view = self.env.ref('c10i_audit.view_ir_attachment_tree_audit', raise_if_not_found=False)
+        
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Dokumen Activity'),
+            'res_model': 'ir.attachment',
+            'view_mode': 'tree',
+            'views': [(custom_view.id, 'tree')] if custom_view else [(False, 'tree')],
+            'domain': [('id', 'in', attachments.ids)],
+            'context': {'default_res_model': self._name, 'default_res_id': self.id},
+        }
+
+
 
     def action_submit(self):
         self.write({'state': 'submit'})

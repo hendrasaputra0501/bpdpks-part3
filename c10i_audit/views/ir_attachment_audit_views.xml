@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ir_attachment_tree_audit" model="ir.ui.view">
+        <field name="name">ir.attachment.tree.audit</field>
+        <field name="model">ir.attachment</field>
+        <field name="arch" type="xml">
+            <tree string="Dokumen Activity Audit" create="false" edit="false">
+                <field name="name"/>
+                <field name="file_size"/>
+                <field name="create_uid" string="Diupload Oleh"/>
+                <field name="create_date" string="Tanggal Upload"/>
+                <field name="audit_public_document" string="Publish" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+
+</odoo>

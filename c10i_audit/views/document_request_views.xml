@@ -30,6 +30,14 @@
                     <field name="state" widget="statusbar" statusbar_visible="draft,belum_terpenuhi,submit,sudah_terpenuhi,diserahkan,ditolak"/>
                 </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box" groups="c10i_audit.group_audit_spi">
+                        <button name="action_open_activity_attachments"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-paperclip">
+                            <field name="message_attachment_count" widget="statinfo" string="Dokumen Activity"/>
+                        </button>
+                    </div>
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only" />
                         <h1>
