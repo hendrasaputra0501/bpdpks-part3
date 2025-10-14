@@ -7,19 +7,19 @@ class AuditFindings(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'recommendation_date desc, id desc'
 
-    audit_id        = fields.Many2one('audit.audit', string='Audit', ondelete='cascade', tracking=True)
-    name            = fields.Char('Nomor Rekomendasi', required=True)
-    condition        = fields.Text('Kondisi')
-    criteria       = fields.Text('Kriteria')
-    cause          = fields.Text('Sebab')
-    effect         = fields.Text('Akibat')
-    response      = fields.Text('Tanggapan Auditee')
+    audit_id = fields.Many2one('audit.audit', string='Audit', ondelete='cascade', tracking=True)
+    name = fields.Char('Nomor Rekomendasi', required=True)
+    condition = fields.Text('Kondisi')
+    criteria = fields.Text('Kriteria')
+    cause = fields.Text('Sebab')
+    effect = fields.Text('Akibat')
+    response = fields.Text('Tanggapan Auditee')
     recommendation_title = fields.Char('Judul Rekomendasi', required=True)
     recommendation_date = fields.Date('Tanggal Rekomendasi', required=True)
     date_received = fields.Date('Tanggal Terima Rekomendasi')
     date_closed = fields.Date('Tanggal Closed')
     date_done_bpdp = fields.Date('Tanggal Selesai BPDP')
-    division_id      = fields.Many2one('hr.department', string='Devisi Teknis')
+    division_id = fields.Many2one('hr.department', string='Devisi Teknis')
     attachment = fields.Binary(string='Lampiran Hasil')
     attachment_name = fields.Char()
     state = fields.Selection([

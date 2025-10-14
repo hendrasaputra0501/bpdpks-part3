@@ -25,8 +25,8 @@ class AuditAudit(models.Model):
     auditee_id = fields.Many2one('audit.partner', string='Pihak Audit', tracking=True)
     team_leader_id = fields.Many2one('res.partner', 'Ketua Tim', required=True, tracking=True)
     date_start = fields.Date('Tanggal Mulai', required=True, tracking=True)
-    date_end             = fields.Date('Tanggal Selesai', required=True, tracking=True)
-    audit_object         = fields.Html('Object Audit', tracking=True)
+    date_end = fields.Date('Tanggal Selesai', required=True, tracking=True)
+    audit_object = fields.Html('Object Audit', tracking=True)
     
     assignment_attachment = fields.Binary('Lampiran Surat Tugas')
     assignment_filename = fields.Char('Nama Lampiran')
@@ -34,17 +34,17 @@ class AuditAudit(models.Model):
     # Entry Meeting
     entry_meeting_date = fields.Date('Tanggal Entry Meeting')
     entry_meeting_note = fields.Html('Catatan Entry Meeting')
-    entry_meeting_doc  = fields.Binary('Dokumen Entry Meeting')
+    entry_meeting_doc = fields.Binary('Dokumen Entry Meeting')
     entry_meeting_filename = fields.Char('Nama File Entry Meeting')
     
     # Exit Meeting
     exit_meeting_date = fields.Date('Tanggal Exit Meeting')
-    exit_meeting_doc  = fields.Binary('Dokumen Exit Meeting')
+    exit_meeting_doc = fields.Binary('Dokumen Exit Meeting')
     exit_meeting_filename = fields.Char('Nama File Exit Meeting')
 
     # Dokument surat tugas
-    document_request_ids    = fields.One2many('audit.document.request', 'audit_id', string='Permindokan Dokumen')
-    discussion_ids  = fields.One2many('audit.discuss.note', 'audit_id', string='Pembahasan')
+    document_request_ids = fields.One2many('audit.document.request', 'audit_id', string='Permindokan Dokumen')
+    discussion_ids = fields.One2many('audit.discuss.note', 'audit_id', string='Pembahasan')
     findings_ids = fields.One2many('audit.findings', 'audit_id', string='Rekomendasi')
 
     stage_id = fields.Many2one(
