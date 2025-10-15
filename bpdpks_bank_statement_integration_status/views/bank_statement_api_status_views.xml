@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="bank_statement_api_status_view_tree" model="ir.ui.view">
+        <field name="name">bank.statement.api.status.view.tree</field>
+        <field name="model">bank.statement.api.status</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="journal_id" />
+                <field name="date" />
+                <field name="status_code" />
+                <field name="url" />
+                <field name="status" widget="badge" decoration-warning="status=='parse_error'"
+                decoration-danger="status=='failed'" decoration-success="status=='success'" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="bank_statement_api_status_view_form" model="ir.ui.view">
+        <field name="name">bank.statement.api.status.view.form</field>
+        <field name="model">bank.statement.api.status</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="journal_id" />
+                            <field name="date" />
+                        </group>
+                        <group >
+                            <field name="status" widget="badge" decoration-warning="status=='parse_error'" decoration-danger="status=='failed'" decoration-success="status=='success'"/>
+                            <field name="status_code" />
+                            <field name="url" widget="CopyClipboardChar" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Message">
+                            <field name="message" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="bank_statement_api_status_view_search" model="ir.ui.view">
+        <field name="name">bank.statement.api.status.view.search</field>
+        <field name="model">bank.statement.api.status</field>
+        <field name="arch" type="xml">
+            <search string="Bank Statement API Status">
+                <field name="journal_id" string="Journal"/>
+                <field name="status" string="Status"/>
+                <field name="date" string="Date"/>
+
+                <filter name="filter_today" string="Today" domain="[('date', '=', context_today())]"/>
+                <filter name="filter_failed" string="Failed" domain="[('status', '=', 'failed')]"/>
+                <filter name="filter_success" string="Success" domain="[('status', '=', 'success')]"/>
+                <filter name="filter_parse_error" string="Parse Error" domain="[('status', '=', 'parse_error')]"/>
+
+                <group expand="0" string="Group By">
+                    <filter name="group_by_journal" string="Journal" context="{'group_by':'journal_id'}"/>
+                    <filter name="group_by_date" string="Date" context="{'group_by':'date'}"/>
+                    <filter name="group_by_status" string="Status" context="{'group_by':'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+
+    <record id="bank_statement_api_status_action" model="ir.actions.act_window">
+        <field name="name">Bank Statement Api Status</field>
+        <field name="res_model">bank.statement.api.status</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="search_view_id" ref="bank_statement_api_status_view_search"/>
+    </record>
+
+</odoo>
