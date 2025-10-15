@@ -146,10 +146,38 @@
         </field>
     </record>
 
+    <record id="view_audit_findings_search" model="ir.ui.view">
+        <field name="name">audit.findings.view.search</field>
+        <field name="model">audit.findings</field>
+        <field name="arch" type="xml">
+            <search string="Cari Rekomendasi Audit">
+                <field name="name"/>
+                <field name="audit_id"/>
+                <field name="division_id"/>
+                <field name="recommendation_title"/>
+
+                <filter string="Draft" name="filter_draft" domain="[('state','=','draft')]"/>
+                <filter string="Proses" name="filter_proses" domain="[('state','=','proses')]"/>
+                <filter string="Sudah Diverifikasi" name="filter_selesai_bpdp" domain="[('state','=','selesai_bpdp')]"/>
+                <filter string="Selesai" name="filter_closed" domain="[('state','=','closed')]"/>
+
+                <filter string="Tanggal Rekomendasi" name="filter_recommendation_date" date="recommendation_date"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Audit" name="group_audit" context="{'group_by':'audit_id'}"/>
+                    <filter string="Divisi Teknis" name="group_divisi" context="{'group_by':'division_id'}"/>
+                    <filter string="Status" name="group_state" context="{'group_by':'state'}"/>
+                    <filter string="Tanggal Rekomendasi" name="group_recommendation_date" context="{'group_by':'recommendation_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
     <record id="action_audit_findings" model="ir.actions.act_window">
         <field name="name">Rekomendasi</field>
         <field name="res_model">audit.findings</field>
         <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_audit_findings_search"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Tidak ada rekomendasi untuk ditampilkan.

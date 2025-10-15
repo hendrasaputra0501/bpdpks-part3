@@ -123,11 +123,44 @@
         </field>
     </record>
 
+    <record id="view_audit_audit_search" model="ir.ui.view">
+        <field name="name">audit.audit.search</field>
+        <field name="model">audit.audit</field>
+        <field name="arch" type="xml">
+            <search string="Cari Audit">
+                <field name="name" string="Judul Audit"/>
+                <field name="no_surat" string="No Surat"/>
+                <field name="team_leader_id" string="Ketua Tim"/>
+                <field name="auditee_id" string="Pihak Auditee"/>
+                <field name="stage_id" string="Tahap Audit"/>
+                <field name="tag_ids" string="Tag Audit"/>
+
+                <!-- <filter string="Tanggal Mulai" name="date_start_filter" domain="[('date_start','!=',False)]"/> -->
+                <filter string="Tanggal Mulai" name="date_start_filter" date="date_start"/>
+                <filter string="Tanggal Selesai" name="date_end_filter" date="date_end"/>
+                <!-- <filter string="Tanggal Selesai" name="date_end_filter" domain="[('date_end','!=',False)]"/> -->
+
+                <group expand="0" string="Group By">
+                    <filter string="Stage" name="group_stage" context="{'group_by':'stage_id'}"/>
+                    <filter string="Auditee" name="group_auditee" context="{'group_by':'auditee_id'}"/>
+                    <filter string="Ketua Tim" name="group_team" context="{'group_by':'team_leader_id'}"/>
+                </group>
+
+                <filter string="Tahap Entry Meeting" name="filter_entry" domain="[('stage_code','=','entry')]"/>
+                <filter string="Tahap Permintaan Dokumen" name="filter_permintaan" domain="[('stage_code','=','permintaan')]"/>
+                <filter string="Tahap Pembahasan" name="filter_pembahasan" domain="[('stage_code','=','pembahasan')]"/>
+                <filter string="Tahap Exit Meeting" name="filter_exit" domain="[('stage_code','=','exit')]"/>
+                <filter string="Selesai" name="filter_done" domain="[('stage_code','=','done')]"/>
+            </search>
+        </field>
+    </record>
+
 
     <record id="audit_audit_action" model="ir.actions.act_window">
         <field name="name">Audit</field>
         <field name="res_model">audit.audit</field>
         <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="c10i_audit.view_audit_audit_search"/>
         <field name="domain">[]</field>
         <field name="context">{}</field>
         <field name="help" type="html">

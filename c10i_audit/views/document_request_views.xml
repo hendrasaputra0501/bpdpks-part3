@@ -106,12 +106,43 @@
         </field>
     </record>
 
+    <record id="view_audit_document_request_search" model="ir.ui.view">
+        <field name="name">audit.document.request.search</field>
+        <field name="model">audit.document.request</field>
+        <field name="arch" type="xml">
+            <search string="Cari Permintaan Dokumen">
+                <field name="name" string="Nama Dokumen"/>
+                <field name="audit_id" string="Audit"/>
+                <field name="division_id" string="Divisi Teknis"/>
+                <field name="request_date" string="Tanggal Permintaan"/>
+                <field name="due_date" string="Tanggal Jatuh Tempo"/>
+                <field name="state" string="Status"/>
+
+                <filter string="Belum Terpenuhi" name="filter_belum_terpenuhi" domain="[('state','=','belum_terpenuhi')]"/>
+                <filter string="Sudah Terpenuhi" name="filter_sudah_terpenuhi" domain="[('state','=','sudah_terpenuhi')]"/>
+                <filter string="Diserahkan ke Auditor" name="filter_diserahkan" domain="[('state','=','diserahkan')]"/>
+                <filter string="Ditolak" name="filter_ditolak" domain="[('state','=','ditolak')]"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Audit" name="group_audit" context="{'group_by':'audit_id'}"/>
+                    <filter string="Divisi Teknis" name="group_divisi" context="{'group_by':'division_id'}"/>
+                    <filter string="Status" name="group_state" context="{'group_by':'state'}"/>
+                    <filter string="Tanggal Permintaan" name="group_tanggal" context="{'group_by':'request_date'}"/>
+                </group>
+
+                <filter string="Tanggal Permintaan" name="filter_request_date" date="request_date"/>
+            </search>
+        </field>
+    </record>
+
+
     <record id="action_audit_document_request" model="ir.actions.act_window">
         <field name="name">Permintaan Dokumen</field>
         <field name="res_model">audit.document.request</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[]</field>
         <field name="context">{'default_devisi_id': uid}</field>
+        <field name="search_view_id" ref="c10i_audit.view_audit_document_request_search"/>
     </record>
 
 </odoo>
