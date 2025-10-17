@@ -25,6 +25,16 @@ class AccountJournal(models.Model):
         })
         return action
     
+    def recon_status_daily(self):
+        action = self.env['ir.actions.act_window']._for_xml_id(
+            'bpdpks_bank_statement_integration_status.action_status_reconciliation_harian'
+        )
+        
+        action.update({
+            'domain': [('journal_id', '=', self.id)],
+        })
+        return action
+    
 
     def sync_bpdpks_mt940_portal(self, sync_date=False):
 

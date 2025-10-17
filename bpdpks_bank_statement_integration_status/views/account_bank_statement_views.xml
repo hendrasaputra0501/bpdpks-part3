@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_bank_statement_reconciliation_status_tree" model="ir.ui.view">
+        <field name="name">bank.statement.reconciliation.status.tree</field>
+        <field name="model">account.bank.statement</field>
+        <field name="arch" type="xml">
+            <tree string="Status Reconciliation Harian">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="journal_id"/>
+                <field name="number_of_receive"/>
+                <field name="number_of_payment"/>
+                <field name="receive_reconcile_state" widget="badge" decoration-success="receive_reconcile_state == 'done'" />
+                <button name="action_reconcile_receive"
+                    type="object"
+                    icon="fa-search"
+                    class="btn btn-info"
+                    attrs="{'invisible': [('receive_reconcile_state', '=', 'done')]}"/>
+                <field name="payment_reconcile_state" widget="badge" decoration-success="payment_reconcile_state == 'done'" />
+                <button name="action_reconcile_payment"
+                    type="object"
+                    icon="fa-search"
+                    class="btn btn-info"
+                    attrs="{'invisible': [('payment_reconcile_state', '=', 'done')]}"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bank_statement_reconciliation_status_form" model="ir.ui.view">
+        <field name="name">bank.statement.reconciliation.status.form</field>
+        <field name="model">account.bank.statement</field>
+        <field name="arch" type="xml">
+            <form string="Status Rekonsiliasi Harian">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_bank_statement_form"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-search">
+                        </button>
+                    </div>
+                    <group>
+                        <field name="state" invisible="1" />
+                        <field name="company_id" invisible="1" />
+                        <field name="name" />
+                        <field name="journal_id" />
+                        <field name="date" />
+                    </group>
+                    <notebook>
+                        <page string="Penerimaan">
+                            <group>
+                                <group name="receive" string="Receive">
+                                    <field name="number_of_receive"/>
+                                    <field name="number_of_receive_reconciled"/>
+                                    <field name="number_of_receive_pending"/>
+                                    <field name="receive_reconcile_state" widget="badge"/>
+                                    <button name="action_reconcile_receive"
+                                            type="object"
+                                            class="oe_highlight"
+                                            icon="fa-search"
+                                            string="Penerimaan Pending"
+                                            attrs="{'invisible': [('number_of_receive_pending', '=', 0)]}">
+                                    </button>
+                                </group>
+                                <group name="pungutan" string="Pungutan">
+                                    <group>
+                                        <field name="number_of_pungutan"/>
+                                        <field name="number_of_pungutan_reconciled"/>
+                                        <field name="number_of_pungutan_pending"/>
+                                        <field name="number_of_pungutan_recon_failed"/>
+                                        <button name="action_reconcile_pungutan"
+                                                type="object"
+                                                class="oe_highlight"
+                                                icon="fa-search"
+                                                string="Pungutan Pending"
+                                                attrs="{'invisible': [('number_of_pungutan_pending', '=', 0)]}">
+                                        </button>
+                                    </group>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Pembayaran">
+                            <group>
+                                <group name="payment" string="Payment">
+                                    <field name="number_of_payment"/>
+                                    <field name="number_of_payment_reconciled"/>
+                                    <field name="number_of_payment_pending"/>
+                                    <field name="payment_reconcile_state" widget="badge"/>
+                                    <button name="action_reconcile_payment"
+                                            type="object"
+                                            class="oe_highlight"
+                                            icon="fa-search"
+                                            string="Payment Pending"
+                                            attrs="{'invisible': [('number_of_payment_pending', '=', 0)]}">
+                                    </button>
+                                </group>
+                                <group name="SPM" string="SPM">
+                                    <field name="number_of_spm"/>
+                                    <field name="number_of_spm_reconciled"/>
+                                    <field name="number_of_spm_pending"/>
+                                    <field name="number_of_spm_recon_failed"/>
+                                    <button name="action_reconcile_spm"
+                                            type="object"
+                                            class="oe_highlight"
+                                            icon="fa-search"
+                                            string="SPM Pending"
+                                            attrs="{'invisible': [('number_of_spm_pending', '=', 0)]}">
+                                    </button>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Bank Deposit">
+                            <group>
+                                <field name="number_of_bank_deposit"/>
+                                <field name="number_of_bank_deposit_reconciled"/>
+                                <field name="number_of_bank_deposit_recon_failed"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_status_reconciliation_harian" model="ir.actions.act_window">
+        <field name="name">Status Reconciliation Harian</field>
+        <field name="res_model">account.bank.statement</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_status_reconciliation_harian_view_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_bank_statement_reconciliation_status_tree"/>
+        <field name="act_window_id" ref="action_status_reconciliation_harian"/>
+    </record>
+
+    <record id="action_status_reconciliation_harian_view_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_bank_statement_reconciliation_status_form"/>
+        <field name="act_window_id" ref="action_status_reconciliation_harian"/>
+    </record>
+
+
+
+</odoo>

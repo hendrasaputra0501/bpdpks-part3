@@ -3,3 +3,4 @@
 from . import models
 from . import bank_statement_api_status
 from . import account_journal
+from . import account_bank_statement

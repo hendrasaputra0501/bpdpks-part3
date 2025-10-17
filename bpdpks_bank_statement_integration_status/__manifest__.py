@@ -24,6 +24,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/bank_statement_api_status_views.xml',
+        'views/account_bank_statement_views.xml',
         'views/account_journal_views.xml',
 
         # 'views/views.xml',

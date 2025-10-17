@@ -10,6 +10,9 @@
                 <div t-if="journal_type == 'bank' and dashboard.bank_statements_source == 'bpdpks_mt940_portal'">
                     <a type="object" name="bank_statement_status">Bank Statement Api Status</a>
                 </div>
+                <div>
+                    <a type="object" name="recon_status_daily">Status Reconciliation Harian</a>
+                </div>
             </xpath>
         </field>
     </record>
